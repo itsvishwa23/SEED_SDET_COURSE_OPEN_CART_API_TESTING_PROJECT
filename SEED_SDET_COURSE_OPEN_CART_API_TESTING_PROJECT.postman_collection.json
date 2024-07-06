@@ -1,0 +1,459 @@
+{
+	"info": {
+		"_postman_id": "e9937371-f69e-449a-a814-0f9f9ae5e6d6",
+		"name": "SEED_SDET_COURSE_OPEN_CART_API_TESTING_PROJECT",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "36642271"
+	},
+	"item": [
+		{
+			"name": "GENERATE_TOKEN",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Body is correct\", function () {\r",
+							"    pm.response.to.have.jsonBody('success', 'Success: API session successfully started!');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Set global variable for api_token\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.globals.set(\"api_token\", jsonData.api_token);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "vishwanath",
+							"type": "text"
+						},
+						{
+							"key": "key",
+							"value": "TGmwgvxzRlwteaWANZgZMKmOLEJb8DgDN6HbxPewNVcLiFp5aHRrCkN4vczRgiptLTQmmc8tr1DoetvAXqyMi0TVu6Y6JkK65ZIu3cyjKz2uc85yvRBt6d7y1JbtEKsk7iEkU23eynrQDkUjnWaAN00kiqysCWtNtDEGXYYREv6JAyn0EZ7XJUTTumYc2RaKDV85adr7F8VzoSpuUFOEzj5dmHOvDMTjTmKgjTgzU2bLxOXufQ3QX8U6ERahDVuG",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://{{ip_address}}/opencart/upload/index.php?route=api/login",
+					"protocol": "http",
+					"host": [
+						"{{ip_address}}"
+					],
+					"path": [
+						"opencart",
+						"upload",
+						"index.php"
+					],
+					"query": [
+						{
+							"key": "route",
+							"value": "api/login"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADD_PROD_TO_CART",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"product_id\", \"40\");\r",
+							"pm.collectionVariables.set(\"quantity\", \"2\");"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "in",
+							"value": "query",
+							"type": "string"
+						},
+						{
+							"key": "value",
+							"value": "{{api_token}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "api_token",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "product_id",
+							"value": "{{product_id}}",
+							"type": "text"
+						},
+						{
+							"key": "quantity",
+							"value": "{{quantity}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}api/cart/add",
+					"host": [
+						"{{base_url}}api"
+					],
+					"path": [
+						"cart",
+						"add"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CHANGE_CURRENCY",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "in",
+							"value": "query",
+							"type": "string"
+						},
+						{
+							"key": "value",
+							"value": "{{api_token}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "api_token",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "currency",
+							"value": "GBP",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}api/currency",
+					"host": [
+						"{{base_url}}api"
+					],
+					"path": [
+						"currency"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EDIT_PROD_QTY",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "in",
+							"value": "query",
+							"type": "string"
+						},
+						{
+							"key": "value",
+							"value": "{{api_token}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "api_token",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "cart_id",
+							"value": "20",
+							"type": "text"
+						},
+						{
+							"key": "quantity",
+							"value": "15",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}api/cart/edit",
+					"host": [
+						"{{base_url}}api"
+					],
+					"path": [
+						"cart",
+						"edit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "REMOVE_PROD",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "in",
+							"value": "query",
+							"type": "string"
+						},
+						{
+							"key": "value",
+							"value": "{{api_token}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "api_token",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "cart_id",
+							"value": "10",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}api/cart/remove",
+					"host": [
+						"{{base_url}}api"
+					],
+					"path": [
+						"cart",
+						"remove"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "APPLY_PROD",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "in",
+							"value": "query",
+							"type": "string"
+						},
+						{
+							"key": "value",
+							"value": "{{api_token}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "api_token",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "code",
+							"value": "1111",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}api/coupon",
+					"host": [
+						"{{base_url}}api"
+					],
+					"path": [
+						"coupon"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET_PROD",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "in",
+							"value": "query",
+							"type": "string"
+						},
+						{
+							"key": "value",
+							"value": "{{api_token}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "api_token",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}api/cart/products",
+					"host": [
+						"{{base_url}}api"
+					],
+					"path": [
+						"cart",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SET_CUSTOMER",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "in",
+							"value": "query",
+							"type": "string"
+						},
+						{
+							"key": "value",
+							"value": "{{api_token}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "api_token",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "firstname",
+							"value": "VISHWANATH",
+							"type": "text"
+						},
+						{
+							"key": "lastname",
+							"value": "TAWARE",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "test@mail.com",
+							"type": "text"
+						},
+						{
+							"key": "telephone",
+							"value": "9604446003",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}api/customer",
+					"host": [
+						"{{base_url}}api"
+					],
+					"path": [
+						"customer"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "product_id",
+			"value": ""
+		},
+		{
+			"key": "quantity",
+			"value": ""
+		}
+	]
+}
